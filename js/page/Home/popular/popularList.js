@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback,useMemo } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, Text, View, Button, FlatList, RefreshControl, ActivityIndicator } from 'react-native'
-import PopularItem from '../../../components/PopularItem'
+import PopularItem from '@/components/PopularItem'
 
 const createPopularList = (language) =>{
   const PoplarList = ({navigation,lists,onSearch,loading})=>{
@@ -32,7 +32,7 @@ const createPopularList = (language) =>{
       //   </View>)
       //   :null
       // )
-    // console.log(lists);
+    console.log(lists);
     return (
       <View style={s.container}>
         {/* <Text style={s.welcome}>
@@ -42,22 +42,22 @@ const createPopularList = (language) =>{
           data={lists&&lists[language]||[]}
           renderItem={renderItem}
           keyExtractor={item=>String(item.id)}
-          // refreshing={loading}
+          refreshing={true}
           // onRefresh={()=>{
           //   onSearch&&onSearch(language)
           // }}
-          refreshControl={
-            <RefreshControl 
-              enabled={true}
-              title="loading"
-              colors={['red']}
-              tintColor="orange"
-              refreshing={loading}
-              onRefresh={()=>{
-                onSearch&&onSearch(language)
-              }}
-            />
-          }
+          // refreshControl={
+          //   <RefreshControl 
+          //     enabled={true}
+          //     title="loading"
+          //     colors={['red']}
+          //     tintColor="orange"
+          //     refreshing={loading}
+          //     onRefresh={()=>{
+          //       onSearch&&onSearch(language)
+          //     }}
+          //   />
+          // }
           
         />
         {/* <View style={s.button}>
@@ -72,7 +72,7 @@ const createPopularList = (language) =>{
   const mapStateToProps = state => {
       const { popular, global, loading } = state;
       // console.log(state);
-      console.log(loading);
+      // console.log(loading);
       return {
           ...popular,
           loading: loading.models.popular,

@@ -1,5 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import { getLanguageList } from '../service'
+import {deepAssignObj, makeArray} from '@/utils/helper';
+import {addArrayItem, delArrayItem, updateArray} from '@/utils/array';
+
 const fetchTest = async () => {
   const res = await fetch(
     'https://www.zhihu.com/api/v3/oauth/sms/supported_countries'
@@ -33,18 +36,16 @@ const popular = {
       });
     },
     *searchList({payload:key}, { call, put, select }) {
-      const { lists } = yield select(_=>_[namespace])
+      // const { lists } = yield select(_=>_[namespace])
       const res = yield call(getLanguageList,key);
-      // console.log(res);
-      yield put({
-        type: 'save',
-        payload: {
-          lists:{
-            ...lists,
-            [key]:res&&res.data&&res.data.items
-          },
-        },
-      });
+      console.log(res);
+      // yield put({
+      //   type: 'assign',
+      //   payload: {
+      //     [key]:res&&res.data&&res.data.items
+      //   },
+      //   path:'lists'
+      // });
     },
   },
 
@@ -52,6 +53,20 @@ const popular = {
     save(state, { payload }) {
       return { ...state, ...payload };
     },
+    assign(state, dadad) {
+      const {path, payload} = dadad
+      return deepAssignObj(state, payload, path);
+    },
+    add(state, action) {
+        return addArrayItem(state, action);
+    },
+    del(state, action) {
+
+        return delArrayItem(state, action);
+    },
+    update(state, action) {
+        return updateArray(state, action);
+    }
   },
 };
 

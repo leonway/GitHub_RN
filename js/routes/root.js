@@ -14,7 +14,7 @@ export default ()=>{
   return (
     <NavigationContainer
       onStateChange={(...data)=>{
-        console.log(data);
+        // console.log(data);
       }}
       theme={{
         ...DefaultTheme,

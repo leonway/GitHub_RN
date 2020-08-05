@@ -1,4 +1,4 @@
-import React, { useEffect,useState, useCallback } from 'react'
+import React, { useEffect,useState, useCallback, useMemo } from 'react'
 import { connect } from 'react-redux'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { StyleSheet, Text, View, Button } from 'react-native'
@@ -36,7 +36,8 @@ function PopularPage(props) {
         key={tab+index}
         name={tab}  
         component={useCallback(createPopularList(tab),[tab])}
-        // component={createPopularList(tab)}
+        // component={useMemo(createPopularList(tab))}
+        // component={useMemo()}
         options={{  
           tabBarLabel:({focused,...style})=>(<Text style={style}>
             {tab}
