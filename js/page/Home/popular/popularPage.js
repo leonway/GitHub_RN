@@ -1,29 +1,19 @@
-import React from 'react'
+import React, { useEffect,useState, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { StyleSheet, Text, View, Button } from 'react-native'
-
+import createPopularList from './popularList'
 
 function PopularPage(props) {
-  console.log(props);
-  const { tabs=[], global, onClick,navigation } = props
+  // console.log(props);
+  const { tabs=[], global, onClick, navigation } = props
   const Tab = createMaterialTopTabNavigator()
-
-  const createPoplarPage = (index)=> ({navigation})=>(
-      <View style={s.container}>
-        <Text style={s.welcome}>
-          popular language{index}
-        </Text>
-        <Button title="go to detailPage" onPress={()=>navigation&&navigation.navigate('detailPage')} />
-      </View>
-    )
 
   return (
     <Tab.Navigator 
-      
       initialRouteName={tabs[0]}
       lazy={true}
-      lazyPreloadDistance={1}
+      // lazyPreloadDistance={1}
       // backBehavior="initialRoute"
       upperCaseLabel={false}
       tabBarOptions={{
@@ -40,11 +30,13 @@ function PopularPage(props) {
           labelStyle: s.labelStyle,//文字的样式
         }}
     >
+    
     {tabs.map((tab,index)=>(
       <Tab.Screen 
         key={tab+index}
-        name={tab} 
-        component={createPoplarPage(tab)} 
+        name={tab}  
+        component={useCallback(createPopularList(tab),[tab])}
+        // component={createPopularList(tab)}
         options={{  
           tabBarLabel:({focused,...style})=>(<Text style={style}>
             {tab}
@@ -58,6 +50,8 @@ function PopularPage(props) {
           // )
         }}
       />
+        
+     
     ))}
   </Tab.Navigator>
   )
@@ -65,14 +59,14 @@ function PopularPage(props) {
 
 const mapStateToProps = state => {
   const { popular, global, loading } = state;
-  console.log(state);
+  // console.log(state);
   return {
     ...popular,
     loading: loading.models.popular,
   };
 };
 const actionCreators = {
-  // onClick: ()=>({type:"popular/zhihu"})
+  // onSearch: (language)=>({type:"popular/searchList",payload:language})
 };
 
 export default connect(mapStateToProps,actionCreators)(PopularPage)
@@ -80,7 +74,7 @@ export default connect(mapStateToProps,actionCreators)(PopularPage)
 const s = StyleSheet.create({
   container:{
     flex: 1,
-    flexDirection: 'row',
+    // flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f5fcff',
@@ -107,5 +101,8 @@ const s = StyleSheet.create({
     // minWidth: 50,
     // justifyContent: 'center',
     // alignItems: 'center',
-  } 
+  },
+  button:{
+    marginBottom: 10,
+  }
 })

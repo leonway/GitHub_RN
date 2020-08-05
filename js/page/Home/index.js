@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import TrendingPage from '../page/TrendingPage'
-import PopularPage from '../page/PopularPage'
-import MyPage from '../page/MyPage'
-import FavoritePage from '../page/FavoritePage'
+import TrendingPage from '../TrendingPage'
+import PopularPage from './popular/popularPage'
+import MyPage from '../MyPage'
+import FavoritePage from '../FavoritePage'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
 

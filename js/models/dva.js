@@ -30,11 +30,11 @@ function createApp(opt) {
   app = create(opt);
   // app.use(immer());
   app.use(createLoading());
-  app.use({
-    onError(err: any) {
-      console.log('dvaError', err);
-    },
-  });
+  // app.use({
+  //   onError(err: any) {
+  //     console.log('dvaError', err);
+  //   },
+  // });
   if (!registered) {
     opt.models.forEach((model: any) => app.model(model));
   }
